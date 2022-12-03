@@ -1,0 +1,27 @@
+<div class="container mt-3">
+    <div class="row justify-content-md-center">
+      <div class="col col-lg-6">
+        <table id="empleados" class="table table-striped" style="width:100%">
+          <thead>
+              <tr >
+                  <th style="width:20%;" class="text-center">Id</th>
+                  <th style="width:60%;" class="text-center">Nombre</th>
+                  <th style="width:60%;" class="text-center">Apellido</th>
+                  <th style="width:60%;" class="text-center">Id Ciudad</th>
+                  <th style="width:60%;" class="text-center">Fecha Registro</th>
+                  <th style="width:20%;" class="text-center"></th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let items of misEmpleados">
+                  <td>{{items.id}}</td>
+                  <td>{{items.nombre}}</td>
+                  <td>{{items.apellido}}</td>
+                  <td>{{items.idciud}}</td>
+                  <td>{{items.fechaRegistro}}</td>
+                  <td class="text-end"><button type="button" class="btn btn-danger" (click)="Eliminar(items.id)">Eliminar</button></td>
+              </tr>
+          </tbody>
+      </table>
+      </div>
+  </div>

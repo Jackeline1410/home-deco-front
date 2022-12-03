@@ -1,0 +1,153 @@
+<div class="container mt-3">
+    <div class="row justify-content-md-center">
+      <div class="col col-lg-7">
+        <div class="card">
+          <div class="card-header">
+            Crud. Proveedores
+          </div>
+          <div class="card-body">
+            <form [formGroup]="frmRegistro" id="frmDataRegistro">
+
+              <div class="row">
+                <div class="col col-lg-4">
+                  <div class="mb-3">
+                    <label for="idProveedor" class="form-label">Id Proveedor</label>
+                    <input formControlName="id" type="text" class="form-control" id="idProveedor" placeholder="Codigo Proveedor">
+                    <ng-container *ngFor="let validation of validationMessage.id">
+                      <div *ngIf="frmRegistro.controls['id'].hasError(validation.type) && (frmRegistro.controls['id'].dirty || frmRegistro.controls['id'].touched)">
+                        <small class="text-danger">{{validation.message}}</small>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                  <div class="col col-lg-12">
+                    <div class="mb-3">
+                      <label for="nombreProveedor" class="form-label">Nombre Proveedor</label>
+                      <input formControlName="nombre" type="text" class="form-control" id="nombreProveedor" placeholder="Nombre Proveedor">
+                      <ng-container *ngFor="let validation of validationMessage.nombre">
+                        <div *ngIf="frmRegistro.controls['nombre'].hasError(validation.type) && (frmRegistro.controls['nombre'].dirty || frmRegistro.controls['nombre'].touched)">
+                          <small class="text-danger">{{validation.message}}</small>
+                        </div>
+                      </ng-container>
+                    </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col col-lg-12">
+                  <div class="mb-3">
+                    <label for="apellidoProveedor" class="form-label">Apellido Empleado</label>
+                    <input formControlName="apellido" type="text" class="form-control" id="apellidoProveedor" placeholder="Apellido Proveedor">
+                    <ng-container *ngFor="let validation of validationMessage.apellido">
+                      <div *ngIf="frmRegistro.controls['apellido'].hasError(validation.type) && (frmRegistro.controls['apellido'].dirty || frmRegistro.controls['apellido'].touched)">
+                        <small class="text-danger">{{validation.message}}</small>
+                      </div>
+                    </ng-container>
+                  </div>
+              </div>
+            </div>
+
+             <div class="row">
+                <div class="col col-lg-12">
+                  <div class="mb-3">
+                    <label for="idciudProveedor" class="form-label">Idciud Empleado</label>
+                    <input formControlName="idCiud" type="text" class="form-control" id="idciudProveedor" placeholder="Idciud Proveedor">
+                    <ng-container *ngFor="let validation of validationMessage.idCiud">
+                      <div *ngIf="frmRegistro.controls['idCiud'].hasError(validation.type) && (frmRegistro.controls['idCiud'].dirty || frmRegistro.controls['idCiud'].touched)">
+                        <small class="text-danger">{{validation.message}}</small>
+                      </div>
+                    </ng-container>
+                  </div>
+              </div>
+             </div>
+
+             <div class="row">
+                <div class="col col-lg-12">
+                  <div class="mb-3">
+                    <label for="fecharegistroProveedor" class="form-label">Fecha Registro Proveedor</label>
+                    <input formControlName="fechaRegistro" type="text" class="form-control" id="fecharegistroProveedor" placeholder="Fecha Registro Proveedor">
+                    <ng-container *ngFor="let validation of validationMessage.fechaRegistro">
+                      <div *ngIf="frmRegistro.controls['fechaRegistro'].hasError(validation.type) && (frmRegistro.controls['fechaRegistro'].dirty || frmRegistro.controls['fechaRegistro'].touched)">
+                        <small class="text-danger">{{validation.message}}</small>
+                      </div>
+                    </ng-container>
+                  </div>
+              </div>
+             </div>
+
+              <div class="container text-center">
+                <button type="button" class="btn btn-primary ms-3" id="btnNuevo" (click)="nuevoRegistro()">Nuevo</button>
+                <button type="button" class="btn btn-success ms-3" id="btnGuardar" (click)="onSubmitData()">Guardar</button>
+                <button type="button" class="btn btn-info ms-3" id="btnCancelar" (click)="cancelarRegistro()">Cancelar</button>
+                <button type="button" class="btn btn-secondary ms-3" id="btnEditar" (click)="onEditData()">Editar</button>
+                <button type="button" class="btn btn-danger ms-3" id="btnEliminar" (click)="onDeleteData()">Eliminar</button>
+              </div>
+              <!-- Mensajes de Alerta  -->
+              <div class="container mt-1">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="alert alert-success" role="alert" *ngIf="estadoProceso == 0">
+                      El registro se guardo correctamente en la base de datos
+                    </div>
+                    <div class="alert alert-info" role="alert" *ngIf="estadoProceso == 1">
+                      El registro se actualizo correctamente en la base de datos
+                    </div>
+                    <div class="alert alert-danger" role="alert" *ngIf="estadoProceso == 2">
+                      El registro se elimino correctamente de la base de datos
+                    </div>
+                    <div class="alert alert-danger" role="alert" *ngIf="estadoProceso == -2">
+                      El registro que busca no se encuentra en la base de datos
+                    </div>
+                    <div class="alert alert-success" role="alert" *ngIf="estadoProceso == 3">
+                      El registro se encontro satisfactoriamente
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Aqui inicia el buscador -->
+  <div class="container mt-3" *ngIf="estadoBuscar == 0">
+    <div class="row justify-content-md-center">
+      <div class="col col-lg-5">
+        <div class="card">
+          <div class="card-header">
+            Buscador
+          </div>
+          <div class="card-body">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="idbuscar" id="inlineRadio1" value="option1">
+              <label class="form-check-label" for="inlineRadio1">Codigo proveedor</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="idbuscar" id="inlineRadio2" value="option2">
+              <label class="form-check-label" for="inlineRadio2">Nombre proveedor</label>
+            </div>
+            <div class="container mt-3">
+              <div class="row">
+                <div class="col col-lg-9">
+                  <input
+                    type="text"
+                    class="d-inline form-control"
+                    id="palabra"
+                    placeholder="Escriba aqui texto a buscar"
+                    name="palabraClave"
+                    [(ngModel)]="palabraClave">
+                </div>
+                <div class="col-lg-3">
+                  <button type="button" class="btn d-inline btn-info" (click)="LoadProveedores()">Buscar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
